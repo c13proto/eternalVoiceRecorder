@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         switch_record.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             if(b){
                 editTextCheck()
+                savedFileList.clear()
                 timerTask=kotlin.concurrent.timerTask {
                     runOnUiThread {
                         stopRecording()
