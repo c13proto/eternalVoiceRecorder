@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity() {
     private var recorder: MediaRecorder? = null
     private var timerTask:TimerTask?=null
 
+    private val TAG="eternalVoiceRecorder"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         permissionCheck()
         switchCtrlInit()
-
+        editTextCheck()
 
     }
 
@@ -54,8 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startRecording(){
-        recording_time=Integer.parseInt(editText_time.text.toString())
-        restore_files=Integer.parseInt(editText_store.text.toString())
+        Log.d(TAG,"startRecording")
         val fileName=makeFileName()
         if(fileName.isNotEmpty()) {
             recorder = MediaRecorder().apply {
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     prepare()
                 } catch (e: IOException) {
-                    Log.e("startRecording", "prepare() failed")
+                    Log.e(TAG, "prepare() failed")
                 }
 
                 start()
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun stopRecording(){
-        Log.d("stopRecording","stopRecording")
+        Log.d(TAG,"stopRecording")
         recorder?.apply {
             stop()
             release()
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
     private fun switchCtrlInit(){
         switch_record.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             if(b){
+                editTextCheck()
                 timerTask=kotlin.concurrent.timerTask {
                     runOnUiThread {
                         stopRecording()
@@ -118,6 +120,11 @@ class MainActivity : AppCompatActivity() {
                 stopRecording()
             }
         }
+    }
+
+    private fun editTextCheck(){
+        recording_time=Integer.parseInt(editText_time.text.toString())
+        restore_files=Integer.parseInt(editText_store.text.toString())
     }
 
     private fun permissionCheck(){
