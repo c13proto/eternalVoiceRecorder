@@ -86,11 +86,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun updateLogAndSaveDirectory(){
         var log="saved file:\n"
-        if(savedFileList.size>restore_files+1){
-            val oldestFileIndex=savedFileList.size-1
-            val oldestFile=File(savedFileList[oldestFileIndex])
+        editTextCheck()
+        while(savedFileList.size>restore_files){
+            val oldestFile=File(savedFileList[0])//latest index is beggest
             if(oldestFile.exists())oldestFile.delete()
-            savedFileList.removeAt(oldestFileIndex)
+            savedFileList.removeAt(0)
         }
         for(savedFile in savedFileList){
             log+=savedFile+"\n"
