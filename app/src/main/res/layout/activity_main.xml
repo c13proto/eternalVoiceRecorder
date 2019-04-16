@@ -39,14 +39,18 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
-                android:id="@+id/editText_store" android:text="5"/>
+                android:id="@+id/editText_store" android:text="12"/>
         <Switch
                 android:text="Record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/switch_record"/>
-        <TextView
-                android:text="saved files:"
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/textView_log"/>
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="saved files:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView_log"/>
+        </ScrollView>
     </LinearLayout>
 </FrameLayout>

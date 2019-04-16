@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -42,7 +43,6 @@ class MainActivity : AppCompatActivity() {
     private fun makeFileName():String{
         var fileName=""
         val saveDirectory=File(editText_save.text.toString())
-
         if(!saveDirectory.exists()){
             if(!saveDirectory.mkdir())
                 showToast("directory error!")
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         else {
             val currentTime = Calendar.getInstance().time
             val dateFormat = SimpleDateFormat("yyyyMMdd_HHmm")
-            fileName = saveDirectory.toString() +'/'+ dateFormat.format(currentTime) + ".m4a"
+            fileName = saveDirectory.toString() +'/'+ dateFormat.format(currentTime) + ".3gp"
         }
         return fileName
     }
@@ -61,9 +61,9 @@ class MainActivity : AppCompatActivity() {
         if(fileName.isNotEmpty()) {
             recorder = MediaRecorder().apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
-                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
                 setOutputFile(fileName)
-                setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
                 try {
                     prepare()
                 } catch (e: IOException) {
